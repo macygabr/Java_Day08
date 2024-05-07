@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="preProcessorToLower" class="spring.modules.PreProcessor.PreProcessorToLowerImpl"/>
+    <bean id="preProcessorToUpper" class="spring.modules.PreProcessor.PreProcessorToUpperImpl"/>
+
+
+    <bean id="rendererStandardWhithLower" class="spring.modules.Renderer.RendererStandardImpl">
+        <constructor-arg name="preprocessor" ref="preProcessorToLower"/>
+    </bean>
+    <bean id="rendererStandardWhithUpper" class="spring.modules.Renderer.RendererStandardImpl">
+        <constructor-arg name="preprocessor" ref="preProcessorToUpper"/>
+    </bean>
+
+    <bean id="rendererErrWhithLower" class="spring.modules.Renderer.RendererErrImpl">
+        <constructor-arg name="rendererLower" ref="preProcessorToLower"/>
+    </bean>
+    <bean id="rendererErrWhithUpper" class="spring.modules.Renderer.RendererErrImpl">
+        <constructor-arg name="rendererUpper" ref="preProcessorToUpper"/>
+    </bean>
+
+    <bean id="printerWithPrefixStdToLower" class="spring.modules.Printer.PrinterWithPrefixImpl">
+        <constructor-arg name="renderer" ref="rendererStandardWhithLower"/>
+        <property name="prefix" value="Prefix"/>
+    </bean>
+    <bean id="printerWithPrefixStdToUpper" class="spring.modules.Printer.PrinterWithPrefixImpl">
+        <constructor-arg name="renderer" ref="rendererStandardWhithUpper"/>
+        <property name="prefix" value="Prefix"/>
+    </bean>
+    <bean id="printerWithPrefixErrToLower" class="spring.modules.Printer.PrinterWithPrefixImpl">
+        <constructor-arg name="renderer" ref="rendererErrWhithLower"/>
+        <property name="prefix" value="Prefix"/>
+    </bean>
+    <bean id="printerWithPrefixErrToUpper" class="spring.modules.Printer.PrinterWithPrefixImpl">
+        <constructor-arg name="renderer" ref="rendererErrWhithUpper"/>
+        <property name="prefix" value="Prefix"/>
+    </bean>
+
+
+    <bean id="printerDateTimeStdToLower" class="spring.modules.Printer.PrinterWithDateTimeImpl">
+        <constructor-arg name="renderer" ref="rendererStandardWhithLower"/>
+    </bean>
+    <bean id="printerDateTimeStdToUpper" class="spring.modules.Printer.PrinterWithDateTimeImpl">
+        <constructor-arg name="renderer" ref="rendererStandardWhithUpper"/>
+    </bean>
+    <bean id="printerDateTimeErrToLower" class="spring.modules.Printer.PrinterWithDateTimeImpl">
+        <constructor-arg name="renderer" ref="rendererErrWhithLower"/>
+    </bean>
+    <bean id="printerDateTimeErrToUpper" class="spring.modules.Printer.PrinterWithDateTimeImpl">
+        <constructor-arg name="renderer" ref="rendererErrWhithUpper"/>
+    </bean>
+
+</beans>
